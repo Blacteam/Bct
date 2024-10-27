@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SV COPY</title>
+    <style>
+        body {
+            background: linear-gradient(135deg, #000000, #1a1a1a);
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #1e1e1e;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #ff0099;
+            font-size: 24px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .box {
+            margin-bottom: 15px;
+            position: relative;
+        }
+        .box label {
+            font-size: 14px;
+            color: #ff0099;
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            background: #1e1e1e;
+            padding: 0 5px;
+        }
+        .box input {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+            box-shadow: inset 0 0 10px rgba(255, 0, 153, 0.5);
+            transition: all 0.3s ease;
+        }
+        .box input:focus {
+            box-shadow: 0 0 10px rgba(255, 0, 153, 0.8);
+            border: 1px solid #ff0099;
+        }
+        button {
+            padding: 12px;
+            background-color: #ff0099;
+            border: none;
+            color: white;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            width: 150px;
+            margin: 10px;
+            box-shadow: 0 4px 15px rgba(255, 0, 153, 0.6);
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background-color: #ff66b2;
+            box-shadow: 0 6px 20px rgba(255, 0, 153, 0.8);
+        }
+        .response {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            background-color: #262626;
+            box-shadow: 0 4px 15px rgba(255, 0, 153, 0.6);
+            transition: all 0.3s ease;
+            color: #ff66b2;
+            font-size: 16px;
+            display: none;
+        }
+        .response.show {
+            display: block;
+            animation: fadeIn 0.8s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>SV COPY</h2>
+         
+       
+        <div class="box">
+            <label for="nid">NID</label>
+            <input type="text" id="nid" placeholder="Enter NID" />
+        </div>
+        <div class="box">
+            <label for="dob">Date of Birth</label>
+            <input type="text" id="dob" />
+        </div>
+        <div>
+            <button onclick="submitForm()">Submit</button>
+            <button onclick="joinChannel()">Join Channel</button>
+        </div>
+        <div id="response" class="response"></div>
+        <div class="footer">Powered by RNF_MODs</div>
+    </div>
+
+    <script>
+        function submitForm() {
+            const password = document.getElementById('password').value;
+            const nid = document.getElementById('nid').value;
+            const dob = document.getElementById('dob').value;
+            const responseBox = document.getElementById('response');
+
+            if (!password || !nid || !dob) {
+                responseBox.textContent = 'Please fill in all fields.';
+                responseBox.classList.add('show');
+                return;
+            }
+
+            if (password !== 'rnf') {
+                responseBox.textContent = 'Incorrect password.';
+                responseBox.classList.add('show');
+                return;
+            }
+
+            const url = `https://api.blackfiretools.my.id/bftsv.php?nid=${nid}&dob=${dob}`;
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    responseBox.innerHTML = data;
+                    responseBox.classList.add('show');
+                })
+                .catch(error => {
+                    responseBox.textContent = 'Error fetching data. Please try again later.';
+                    responseBox.classList.add('show');
+                });
+        }
+
+        function joinChannel() {
+            window.open('https://t.me/BLACKCYBERTEAM1', '_blank');
+        }
+    </script>
+</body>
+</html>
